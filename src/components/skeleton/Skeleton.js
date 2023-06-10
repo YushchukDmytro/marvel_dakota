@@ -1,6 +1,6 @@
 import './skeleton.scss';
 
-const Skeleton = () => {
+export const Skeleton = () => {
     return (
         <>
             <p className="char__select">Please select a character to see information</p>
@@ -15,6 +15,5 @@ const Skeleton = () => {
             </div>
         </>
     )
-}
+};
 
-export default Skeleton;
