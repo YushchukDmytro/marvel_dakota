@@ -8,16 +8,16 @@ export const CharList = (props) => {
 
     const [charList, setCharList] = useState([]);
     const [newCharLoading, setNewCharLoading] = useState(false);
-    const [offset, setOffset] = useState(210);
+    const [offset, setOffset] = useState(0);
     const [charEnded, setCharEnded] = useState(false);
 
 
     const { loading, error, getAllCharacters } = useMarvelService();
-
+/* eslint-disable */
     useEffect(() => {
         onRequest(offset, true)
     }, [])
-
+/* eslint-disable */
     const onRequest = (offset, initial) => {
         initial ? setNewCharLoading(false) : setNewCharLoading(true);
         getAllCharacters(offset)
@@ -33,9 +33,9 @@ export const CharList = (props) => {
         }
 
         setCharList(charList => [...charList, ...newCharList]);
-        setNewCharLoading(newCharLoading => true);
-        setOffset(offset => offset + 9);
-        setCharEnded(charEnded => ended);
+        setNewCharLoading(false);
+        setOffset(offset + 9);
+        setCharEnded(ended);
     }
 
 
@@ -56,7 +56,7 @@ export const CharList = (props) => {
                 <li
                     className="char__item"
                     tabIndex={0}
-                    key={item.id}
+                    key={i}
                     ref={el => itemRefs.current[i] = el}
                     onClick={() => {
                         props.onCharSelected(item.id)

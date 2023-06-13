@@ -1,23 +1,25 @@
-import './comicsList.scss';
+import { useState, useEffect} from 'react';
+import { Link } from 'react-router-dom';
 
-import { useState, useEffect, useRef } from 'react';
 import { useMarvelService } from '../../services/MarvelService';
 import { Spinner } from '../spinner/Spinner';
 import { ErrorMessage } from '../errorMessage/ErrorMessage';
 
-export const ComicsList = (props) => {
+import './comicsList.scss';
 
-    const [offset, setOffset] = useState(210);
+export const ComicsList = () => {
+
+    const [offset, setOffset] = useState(0);
     const [comicsList, setComicsList] = useState([]);
     const [newComicsLoading, setNewComicsLoading] = useState(false);
     const [comicsEnded, swtComicsEnded] = useState(false);
 
     const { getAllComics, loading, error } = useMarvelService();
-
+/* eslint-disable */
     useEffect(() => {
         onRequest(offset, true)
     }, [])
-
+/* eslint-disable */
     const onRequest = (offset, initial) => {
         initial ? setNewComicsLoading(false) : setNewComicsLoading(true);
         getAllComics(offset)
@@ -31,26 +33,26 @@ export const ComicsList = (props) => {
         }
 
         setComicsList(comicsList => [...comicsList, ...newComicsList]);
-        setNewComicsLoading(newComicsLoading => true);
-        setOffset(offset => offset + 8);
-        swtComicsEnded(comicsEnded => ended);
+        setNewComicsLoading(false);
+        setOffset(offset + 8);
+        swtComicsEnded(ended);
     }
 
 
     function renderComics(arr) {
         const items = arr.map((item, i) => {
 
-            const priceNone = item.price == 0 ? 'NOT AVAILABLE' : item.price + '$';
+            const priceNone = item.price === 0 ? 'NOT AVAILABLE' : item.price + '$';
             return(
                 <li 
                     className="comics__item" 
                     key={i}
                     tabIndex={0}>
-                        <a href={item.url}>
-                            <img src={item.images} alt="ultimate war" className="comics__item-img" />
+                        <Link to={`/comics/${item.id}`}>
+                            <img src={item.images} alt={item.title} className="comics__item-img" />
                             <div className="comics__item-name">{item.title}</div>
                             <div className="comics__item-price">{priceNone}</div>
-                        </a>
+                        </Link>
                 </li>
             )
         })

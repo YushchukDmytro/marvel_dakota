@@ -10,11 +10,11 @@ export const RandomChar = () => {
     const [char, setChar] = useState({});
 
     const { loading, error, getCharacter, clearError } = useMarvelService();
-
+/* eslint-disable */
     useEffect(() => {
         updateChar();
     }, []);
-
+/* eslint-disable */
     const onCharLoaded = (char) => {
         setChar(char);
     }

@@ -2,7 +2,7 @@ import AppBanner from "../appBanner/AppBanner";
 import { ComicsList } from "../comicsList/ComicsList.jsx";
 import { ErrorBoundary } from "../errorBoundary/ErrorBoundary";
 
-export const ComicsPage = () => {
+const ComicsPage = () => {
 	return (
 		<>
 			<AppBanner />
@@ -12,3 +12,5 @@ export const ComicsPage = () => {
 		</>
 	)
 }
+
+export default ComicsPage;
